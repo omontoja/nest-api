@@ -1,22 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
+import { Invoice } from './entities/invoice.entity';
 
 @Injectable()
 export class InvoicesService {
-  create(createInvoiceDto: CreateInvoiceDto) {
-    return 'This action adds a new invoice';
+  constructor(
+    @Inject('INVOICES_REPOSITORY')
+    private invoicesRepository: typeof Invoice
+  ) {}
+
+  async create(createInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
+    // const invoice = await this.invoicesRepository.create(createInvoiceDto)
+    const invoice = new createInvoiceDto
+    return invoice
   }
 
-  findAll() {
-    return `This action returns all invoices`;
+  async findAll() {
+    const invoices = await this.invoicesRepository.findAll<Invoice>();
+		return invoices;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} invoice`;
+  async findOne(id: number) {
+		const invoice = await this.invoicesRepository.findOne({
+			where: { 
+				id
+			}
+		});
+    return invoice;
   }
 
-  update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
+  async update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
+    // const invoice = id;
+		// await this.invoicesRepository.update( {
+		// 	where: { 
+		// 		id
+		// 	}
+		// });
     return `This action updates a #${id} invoice`;
   }
 
