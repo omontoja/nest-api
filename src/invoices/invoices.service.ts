@@ -11,36 +11,22 @@ export class InvoicesService {
   ) {}
 
   async create(createInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
-    // const invoice = await this.invoicesRepository.create(createInvoiceDto)
-    const invoice = new createInvoiceDto
-    return invoice
+    return  await this.invoicesRepository.create<Invoice>(createInvoiceDto as any)
   }
 
   async findAll() {
-    const invoices = await this.invoicesRepository.findAll<Invoice>();
-		return invoices;
+    return await this.invoicesRepository.findAll<Invoice>();
   }
 
   async findOne(id: number) {
-		const invoice = await this.invoicesRepository.findOne({
-			where: { 
-				id
-			}
-		});
-    return invoice;
+    return this.invoicesRepository.findOne({ where: { id } });
   }
 
   async update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
-    // const invoice = id;
-		// await this.invoicesRepository.update( {
-		// 	where: { 
-		// 		id
-		// 	}
-		// });
-    return `This action updates a #${id} invoice`;
+    return this.invoicesRepository.update({ ...updateInvoiceDto }, { where: { id } });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} invoice`;
+    return this.invoicesRepository.destroy({ where: { id } });
   }
 }

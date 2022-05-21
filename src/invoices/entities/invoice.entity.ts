@@ -14,7 +14,8 @@ export class Invoice extends Model {
 
   @Column({
 		type: DataType.STRING(44),
-    allowNull: false
+    allowNull: false,
+    unique: true
 	})
   code: String;
 

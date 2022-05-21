@@ -1,4 +1,6 @@
 export class CreateInvoiceDto {
-    readonly code: String
-    readonly status: String
+    code: string;
+    status: string;
+    leftAt: Date;
+    returnedAt: Date;
 }
