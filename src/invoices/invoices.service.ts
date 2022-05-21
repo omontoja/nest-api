@@ -11,7 +11,7 @@ export class InvoicesService {
   ) {}
 
   async create(createInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
-    return  await this.invoicesRepository.create<Invoice>(createInvoiceDto as any)
+    return  await this.invoicesRepository.create<Invoice>(createInvoiceDto as any) 
   }
 
   async findAll() {
@@ -28,5 +28,17 @@ export class InvoicesService {
 
   remove(id: number) {
     return this.invoicesRepository.destroy({ where: { id } });
+  }
+
+  async findByCode(code: string) {
+    return this.invoicesRepository.findOne({ where: { code } });
+  }
+
+  async updateLeft(id: number, updateInvoiceDto: UpdateInvoiceDto) {
+    return this.invoicesRepository.update({ leftAt: Date.now(), status: 'left' }, { where: { id } });
+  }
+
+  async updateReturn(id: number, updateInvoiceDto: UpdateInvoiceDto) {
+    return this.invoicesRepository.update({ returnedAt: Date.now(), status: 'returned' }, { where: { id } });
   }
 }
