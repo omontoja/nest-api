@@ -23,7 +23,7 @@ export class InvoicesController {
       throw new HttpException('Somente 44 digitos', HttpStatus.FORBIDDEN);
     }
     const hasInvoice = await this.invoicesService.findByCode(createInvoiceDto.code);
-    if (hasInvoice.status == 'left'){
+    if  (hasInvoice && hasInvoice.status == 'left'){
        throw new HttpException('Saiu para entrega e não retornou', HttpStatus.FORBIDDEN);
     }
     return this.invoicesService.create(createInvoiceDto);

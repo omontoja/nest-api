@@ -11,7 +11,7 @@
 
        npm install
 
-  **2-** No arquivo `database.providers.ts`, insira as credenciais do seu banco de dados SQL
+  **2-** No arquivo `database.providers.ts`, insira as credenciais do seu banco de dados MySQL
 
   **3-** Iniciar o servidor com o comando:
 
